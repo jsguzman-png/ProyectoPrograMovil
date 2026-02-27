@@ -8,7 +8,7 @@ import ExpenseCard from '../components/ExpenseCard';
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
 import { useGroups } from '../context/GroupContext';
-import { Expense } from '../types';
+import { Expense,Group,Participant,Balance } from '../types';
 import { Ionicons } from '@expo/vector-icons';
 
 export default function GroupDetailScreen({ route, navigation }: any) {
@@ -25,7 +25,7 @@ export default function GroupDetailScreen({ route, navigation }: any) {
     fetchExchangeRate,
   } = useGroups();
 
-  const group = groups.find((g) => g.id === groupId);
+  const group = groups.find((g: Group) => g.id === groupId);
   const expenses = getExpensesByGroup(groupId);
   const balances = calculateBalances(groupId);
 
@@ -59,9 +59,9 @@ export default function GroupDetailScreen({ route, navigation }: any) {
     setSubmitted(true);
     if (!isFormValid) return;
 
-    const validParticipant = group.participants.some(
-      (p) => p.name.toLowerCase() === paidBy.trim().toLowerCase()
-    );
+   const validParticipant = group.participants.some(
+  (p: Participant) => p.name.toLowerCase() === paidBy.trim().toLowerCase()
+);
     if (!validParticipant) {
       Alert.alert('Participante inválido', `"${paidBy}" no está en el grupo.`);
       return;
@@ -95,7 +95,7 @@ export default function GroupDetailScreen({ route, navigation }: any) {
       <View style={styles.header}>
         <Text style={styles.groupName}>{group.name}</Text>
         <Text style={styles.participants}>
-          {group.participants.map((p) => p.name).join('  ·  ')}
+          {group.participants.map((p: Participant) => p.name).join('  ·  ')}
         </Text>
       </View>
 
@@ -118,7 +118,7 @@ export default function GroupDetailScreen({ route, navigation }: any) {
       {balances.length > 0 && (
         <View style={styles.balanceCard}>
           <Text style={styles.balanceTitle}>⚖️ Balance actual</Text>
-          {balances.map((b) => (
+          {balances.map((b: Balance) => (
             <View key={b.participantName} style={styles.balanceRow}>
               <Text style={styles.balanceName}>{b.participantName}</Text>
               <Text style={[styles.balanceAmount, b.owes > 0 ? styles.owes : styles.owed]}>
@@ -162,7 +162,7 @@ export default function GroupDetailScreen({ route, navigation }: any) {
 
           <Text style={styles.label}>¿Quién pagó?</Text>
           <Text style={styles.hint}>
-            Participantes: {group.participants.map((p) => p.name).join(', ')}
+            Participantes: {group.participants.map((p: Participant) => p.name).join(', ')}
           </Text>
           <CustomInput
             value={paidBy}
@@ -191,7 +191,7 @@ export default function GroupDetailScreen({ route, navigation }: any) {
           <Text style={styles.emptyText}>Agrega el primer gasto del grupo.</Text>
         </View>
       ) : (
-        expenses.map((expense) => (
+        expenses.map((expense: Expense) => (
           <ExpenseCard
             key={expense.id}
             expense={expense}

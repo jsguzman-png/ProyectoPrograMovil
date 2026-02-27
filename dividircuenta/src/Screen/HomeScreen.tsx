@@ -7,6 +7,7 @@ import GroupCard from '../components/GroupCard';
 import CustomButton from '../components/CustomButton';
 import { useAuth } from '../context/AuthContext';
 import { useGroups } from '../context/GroupContext';
+import { Group } from '../types';
 
 export default function HomeScreen({ navigation }: any) {
   const { user, logout } = useAuth();
@@ -51,7 +52,7 @@ export default function HomeScreen({ navigation }: any) {
           <Text style={styles.countText}>
             {groups.length} grupo{groups.length !== 1 ? 's' : ''}
           </Text>
-          {groups.map((group) => (
+          {groups.map((group: Group) => (
             <GroupCard
               key={group.id}
               group={group}
