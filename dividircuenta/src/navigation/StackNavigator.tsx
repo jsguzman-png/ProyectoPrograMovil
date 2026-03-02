@@ -34,8 +34,6 @@ export default function StackNavigator() {
         options={{
           headerShown: false,
           headerLeft: () => null,
-          headerBackVisible: false,
-          gestureEnabled: false,
         }}
       />
       <Stack.Screen
