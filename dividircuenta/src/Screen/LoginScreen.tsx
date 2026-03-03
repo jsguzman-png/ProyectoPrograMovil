@@ -47,7 +47,7 @@ export default function LoginScreen({ navigation }: any) {
         <Text style={styles.label}>Correo electrónico</Text>
         <CustomInput
           value={email}
-          placeholder="tucorreo@universidad.edu"
+          placeholder="tucorreo@.edu"
           onChangeText={setEmail}
           type="email"
           error={emailError}
